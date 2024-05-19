@@ -1,14 +1,15 @@
 <div class="panel panel-default">
-    <div class="panel-heading">
-    <div class="row pad-left-right">
-      <span class="pull-left title">Add Documents</span>
-      <a class="btn btn-success pull-right">Add Document</a>
-      </div>
-      </div>
-    <div class="panel-body">
+  <div class="panel-heading">
+    <div class="d-flex justify-content-between align-items-center pad-left-right">
+      <span class="title">Documents</span>
+      <a class="btn btn-success">Add Document</a>
+    </div>
+  </div>
+  <div class="panel-body">
     <div class="center-panel">
-    <app-document-item></app-document-item>
+      <app-document-item *ngFor="let documentEl of documents"
+      [document]="documentEl"
+      (documentSelected)="onDocumentSelected(documentEl)"></app-document-item>
     </div>
-    </div>
-    
-    </div>
+  </div>
+</div>

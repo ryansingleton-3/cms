@@ -1,1 +1,16 @@
-<p>document-detail works!</p>
+<div class="card">
+  <div class="card-header">
+    <div class="d-flex justify-content-between align-items-center">
+      <h5 class="title mb-0">{{document?.name}}</h5>
+      <div>
+        <a class="btn btn-primary btn-sm">View</a>
+        <a class="btn btn-info btn-sm">Edit</a>
+        <a class="btn btn-danger btn-sm">Delete</a>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <p class="mb-2"><strong>Description: <br></strong> {{document?.description}}</p>
+    <p class="mb-0"><strong>URL:<br> </strong> <a href="{{document?.url}}" target="_blank">{{document?.url}}</a></p>
+  </div>
+</div>
