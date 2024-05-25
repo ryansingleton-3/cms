@@ -5,7 +5,7 @@
           <div class="panel-body">
              <div class="row">
                 <div class="col-xs-12">
-                   <app-message-item></app-message-item>
+                   <app-message-item *ngFor="let messageEl of messages" [message]="messageEl"></app-message-item>
                 </div>
              </div>
           </div>
