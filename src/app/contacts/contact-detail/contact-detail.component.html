@@ -9,8 +9,8 @@
     </div>
     <!-- Buttons column -->
     <div class="col">
-      <button class="btn btn-primary py-1 px-3 rounded me-2" role="button">Edit</button>
-      <button class="btn btn-danger py-1 px-3 rounded" role="button">Delete</button>
+      <button [routerLink]="['edit']" class="btn btn-primary py-1 px-3 rounded me-2" role="button">Edit</button>
+      <button (click)="onDelete()" class="btn btn-danger py-1 px-3 rounded" role="button">Delete</button>
     </div>
   </div>
   <hr class="my-4">

@@ -15,11 +15,12 @@ export class DocumentListComponent {
 
   }
 
-  onDocumentSelected(document: Document) {
-    this.documentService.documentSelected.emit(document);
-  }
-
   ngOnInit() {
     this.documents = this.documentService.getDocuments();
+    this.documentService.documentChangedEvent.subscribe(
+      (documents: Document[]) => {
+        this.documents = documents;
+      }
+    );
   }
 }
