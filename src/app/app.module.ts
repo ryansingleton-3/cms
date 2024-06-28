@@ -48,8 +48,8 @@ import { ContactEditComponent } from './contacts/contact-edit/contact-edit.compo
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-    DragDropModule,
-  ],
+    DragDropModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

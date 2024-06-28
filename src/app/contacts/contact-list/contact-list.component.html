@@ -1,14 +1,16 @@
 <div class="row">
-    <div class="col-xs-12">
-      <button routerLink="new" class="btn btn-success">New contact</button>
-    </div>
+  <div class="col-xs-12">
+    <button routerLink="new" class="btn btn-success">New contact</button>
   </div>
-  
-  <div class="row mt-4">
-    <div class="col-xs-12">
-      <app-contact-item
-        *ngFor="let contactEl of contacts"
-        [contact]="contactEl"
-        ></app-contact-item>
-    </div>
+</div>
+
+<div class="row mt-4">
+  <div class="col-xs-12" cdkDropList id="contactList" (cdkDropListDropped)="onDrop($event)" [cdkDropListConnectedTo]="['groupList']">
+    <app-contact-item
+      *ngFor="let contactEl of contacts"
+      [contact]="contactEl"
+      cdkDrag
+      [cdkDragData]="contactEl">
+    </app-contact-item>
   </div>
+</div>

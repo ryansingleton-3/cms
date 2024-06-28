@@ -1,19 +1,19 @@
-import { Component, OnInit, OnDestroy} from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Contact } from '../contact.model';
 import { ContactService } from '../contact.service';
 import { Subscription } from 'rxjs';
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-contact-list',
   templateUrl: './contact-list.component.html',
-  styleUrls: ['./contact-list.component.css']  
+  styleUrls: ['./contact-list.component.css']
 })
-export class ContactListComponent implements OnInit, OnDestroy{
+export class ContactListComponent implements OnInit, OnDestroy {
   contacts: Contact[] = [];
   private subscription: Subscription;
 
   constructor(private contactService: ContactService) {}
-
 
   ngOnInit() {
     this.contacts = this.contactService.getContacts();
@@ -25,6 +25,14 @@ export class ContactListComponent implements OnInit, OnDestroy{
   }
 
   ngOnDestroy() {
-    this.contactService.contactListChanged.unsubscribe();
+    this.subscription.unsubscribe();
+  }
+
+  onDrop(event: CdkDragDrop<Contact[]>) {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(this.contacts, event.previousIndex, event.currentIndex);
+    } else {
+      transferArrayItem(event.previousContainer.data, event.container.data, event.previousIndex, event.currentIndex);
+    }
   }
 }
