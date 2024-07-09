@@ -22,5 +22,13 @@ export class MessageEditComponent implements OnInit {
     let id = (Math.floor(Math.random() * 100) + 1).toString();
     const newMessage = new Message(id, subject, text, '1');
     this.messageService.addMessage(newMessage);
+    // clear the form
+    this.onClear();
+    
+  }
+
+  onClear() {
+    this.subjectInputRef.nativeElement.value = '';
+    this.textInputRef.nativeElement.value = '';
   }
 }

@@ -5,21 +5,16 @@ import { ContactService } from './contact.service';
 @Component({
   selector: 'app-contacts',
   templateUrl: './contacts.component.html',
-  providers: [ContactService]
+  providers: [ContactService],
 })
 export class ContactsComponent {
-  
-
   selectedContact: Contact;
 
   constructor(private contactService: ContactService) {}
 
   ngOnInit() {
-    this.contactService.contactSelected
-      .subscribe(
-        (contact: Contact) => {
-          this.selectedContact = contact;
-        }
-      );
+    this.contactService.contactSelected.subscribe((contact: Contact) => {
+      this.selectedContact = contact;
+    });
   }
 }
