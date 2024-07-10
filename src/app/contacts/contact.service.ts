@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Contact } from './contact.model';
-import { MOCKCONTACTS } from './MOCKCONTACTS';
 import { EventEmitter } from '@angular/core';
 import { Subject } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -11,11 +10,10 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class ContactService {
   contacts: Contact[] = [];
   contactListChanged = new Subject<Contact[]>();
-  maxContactId: number;
+  maxContactId: number = 0;
 
   constructor(private http: HttpClient) {
     this.fetchContacts();
-    this.maxContactId = this.getMaxId();
   }
 
   contactSelected = new EventEmitter<Contact>();
@@ -46,15 +44,17 @@ export class ContactService {
   }
 
   getMaxId(): number {
-    let maxId = 0;
+    if (!Array.isArray(this.contacts)) {
+      return 0;
+    }
 
+    let maxId = 0;
     for (let contact of this.contacts) {
       let currentId = +contact.id;
       if (currentId > maxId) {
         maxId = currentId;
       }
     }
-
     return maxId;
   }
 
@@ -65,8 +65,15 @@ export class ContactService {
 
     this.maxContactId++;
     newContact.id = this.maxContactId.toString();
-    this.contacts.push(newContact);
-    this.storeContacts();
+    this.http.post<{message: string}>('http://localhost:3000/api/contacts', newContact)
+    .subscribe(
+      (responseData) => {
+        console.log(responseData.message)
+        console.log(newContact);
+        this.contacts.push(newContact);
+        this.storeContacts();
+      }
+    );
   }
 
   updateContact(originalContact: Contact, newContact: Contact) {
@@ -90,10 +97,12 @@ export class ContactService {
   }
 
   fetchContacts() {
-    this.http.get<Contact[]>('https://rbs-cms-default-rtdb.firebaseio.com/contacts.json')
+    this.http.get<Contact[]>('http://localhost:3000/api/contacts')
       .subscribe(
         (contacts: Contact[]) => {
           this.contacts = contacts;
+          console.log('contacts fetched successfully');
+          console.log(contacts);
           this.maxContactId = this.getMaxId();
           this.contacts.sort((a, b) => {
             if (a.name < b.name) return -1;
