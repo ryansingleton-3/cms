@@ -1,6 +1,11 @@
-<a class="list-group-item clearfix">
-    <div>
+<a class="list-group-item clearfix" style="border: 1px solid grey; padding: 10px; border-radius: 10px; width: 100%;" >
+  <div>
     <span class="messageHeader">{{ messageSender }}</span>
+    <!-- <div class="messageSubject">{{message?.subject}}</div> -->
     <div class="messageText">{{ message?.msgText }}</div>
-    </div>
-    </a>
+  </div>
+  <div class="col">
+    <button (click)="onEdit()" class="btn btn-primary py-1 px-3 rounded me-2" role="button">Edit</button>
+    <button (click)="onDelete()" class="btn btn-danger py-1 px-3 rounded" role="button">Delete</button>
+  </div>
+</a>

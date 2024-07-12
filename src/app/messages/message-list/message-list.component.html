@@ -1,15 +1,14 @@
 <div class="row">
-    <div class="col-md-5">
-       <div class="panel panel-default">
-          
-          <div class="panel-body">
-             <div class="row">
-                <div class="col-xs-12">
-                   <app-message-item *ngFor="let messageEl of messages" [message]="messageEl"></app-message-item>
-                </div>
-             </div>
-          </div>
-          
-       </div>
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <div class="row">
+        <div>
+          <app-message-item
+            *ngFor="let messageEl of messages"
+            [message]="messageEl"
+          ></app-message-item>
+        </div>
+      </div>
     </div>
- </div>
+  </div>
+</div>

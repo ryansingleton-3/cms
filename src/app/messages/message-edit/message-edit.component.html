@@ -1,6 +1,6 @@
-<div class="panel panel-default">
+<div class="panel panel-default" *ngIf="!loading">
   <div class="panel-body">
-    <form id="document-edit" >
+    <form id="message-edit" #f="ngForm" (ngSubmit)="onSaveMessage()">
       <div class="row">
         <div class="col-sm-12 form-group">
           <label for="subject">Subject</label>
@@ -11,7 +11,9 @@
             size="120"
             max="120"
             name="subject"
-            #subjectInput
+            [ngModel]="message?.subject"
+            required
+            #subject="ngModel"
           />
         </div>
 
@@ -19,21 +21,28 @@
           <label for="message">Message</label>
           <input
             type="text"
-            id="message"
+            id="msgText"
             class="form-control"
             max="255"
             size="120"
             name="msgText"
-            #textInput
+            [ngModel]="message?.msgText"
+            required
+            #msgText="ngModel"
           />
         </div>
       </div>
       <div class="row">
         <div class="col-xs-12">
-          <button class="btn btn-success" type="submit" (click)="onSendMessage()">Send</button>
+          <button class="btn btn-success" type="submit" [disabled]="f.invalid">Save</button>
           <button class="btn btn-danger" type="button" (click)="onClear()">Clear</button>
         </div>
       </div>
     </form>
   </div>
+</div>
+
+<!-- Loading indicator -->
+<div *ngIf="loading" class="loading-indicator">
+  Loading...
 </div>

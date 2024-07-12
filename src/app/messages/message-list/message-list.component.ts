@@ -10,11 +10,15 @@ import { OnInit } from '@angular/core';
 })
 export class MessageListComponent implements OnInit{
   messages: Message[] = [];
+  selectedMessage: Message;
 
   constructor(private messageService: MessageService) {}
 
 
   ngOnInit() {
+    this.messageService.messageSelected.subscribe((message: Message) => {
+      this.selectedMessage = message;
+    });
     this.messages = this.messageService.getMessages();
     this.messageService.messageListChanged
       .subscribe(
